@@ -2,49 +2,41 @@ import streamlit as st
 import random
 
 # -----------------------------
-# MBTI별 추천 노래 데이터
+# MBTI 근거 기반 노래 데이터
 # -----------------------------
 mbti_songs = {
-    "INTJ": ["Lucid Dreams - Juice WRLD", "Numb - Linkin Park", "Night Changes - One Direction"],
-    "INTP": ["Stressed Out - Twenty One Pilots", "Lost Stars - Adam Levine", "Yellow - Coldplay"],
-    "ENTJ": ["Power - Kanye West", "Can't Hold Us - Macklemore", "Hall of Fame - The Script"],
-    "ENTP": ["Thunder - Imagine Dragons", "Counting Stars - OneRepublic", "Blinding Lights - The Weeknd"],
+    "INTJ": ["Numb - Linkin Park", "Time - Hans Zimmer", "Mad World - Gary Jules"],
+    "INTP": ["Stressed Out - Twenty One Pilots", "Lost Stars - Adam Levine", "Breathe Me - Sia"],
+    "ENTJ": ["Power - Kanye West", "Eye of the Tiger - Survivor", "Stronger - Kelly Clarkson"],
+    "ENTP": ["Thunder - Imagine Dragons", "Blinding Lights - The Weeknd", "Counting Stars - OneRepublic"],
     "INFJ": ["Fix You - Coldplay", "Someone Like You - Adele", "Let Her Go - Passenger"],
-    "INFP": ["Little Do You Know - Alex & Sierra", "Let It Go - James Bay", "All I Want - Kodaline"],
-    "ENFJ": ["Beautiful People - Ed Sheeran", "We Are Young - Fun.", "What Makes You Beautiful - One Direction"],
+    "INFP": ["River Flows in You - Yiruma", "All I Want - Kodaline", "Let It Go - James Bay"],
+    "ENFJ": ["We Are Young - Fun.", "What Makes You Beautiful - One Direction", "Beautiful People - Ed Sheeran"],
     "ENFP": ["Happy - Pharrell Williams", "Shake It Off - Taylor Swift", "Good Time - Owl City & Carly Rae Jepsen"],
-    "ISTJ": ["Counting Stars - OneRepublic", "Radioactive - Imagine Dragons", "Believer - Imagine Dragons"],
-    "ISFJ": ["Photograph - Ed Sheeran", "You Are the Reason - Calum Scott", "Perfect - Ed Sheeran"],
-    "ESTJ": ["Stronger - Kelly Clarkson", "Fight Song - Rachel Platten", "Eye of the Tiger - Survivor"],
-    "ESFJ": ["Best Day of My Life - American Authors", "Roar - Katy Perry", "Brave - Sara Bareilles"],
-    "ISTP": ["Believer - Imagine Dragons", "Take Me to Church - Hozier", "Demons - Imagine Dragons"],
-    "ISFP": ["Say You Won’t Let Go - James Arthur", "Let Me Down Slowly - Alec Benjamin", "Before You Go - Lewis Capaldi"],
+    "ISTJ": ["Radioactive - Imagine Dragons", "Counting Stars - OneRepublic", "Believer - Imagine Dragons"],
+    "ISFJ": ["Perfect - Ed Sheeran", "Photograph - Ed Sheeran", "You Are the Reason - Calum Scott"],
+    "ESTJ": ["Fight Song - Rachel Platten", "Eye of the Tiger - Survivor", "Stronger - Kelly Clarkson"],
+    "ESFJ": ["Roar - Katy Perry", "Best Day of My Life - American Authors", "Brave - Sara Bareilles"],
+    "ISTP": ["Take Me to Church - Hozier", "Believer - Imagine Dragons", "Demons - Imagine Dragons"],
+    "ISFP": ["Say You Won’t Let Go - James Arthur", "Before You Go - Lewis Capaldi", "Let Me Down Slowly - Alec Benjamin"],
     "ESTP": ["Can’t Stop the Feeling - Justin Timberlake", "Uptown Funk - Bruno Mars", "On Top of the World - Imagine Dragons"],
-    "ESFP": ["Dance Monkey - Tones and I", "Levitating - Dua Lipa", "Shut Up and Dance - Walk The Moon"]
+    "ESFP": ["Dance Monkey - Tones and I", "Shut Up and Dance - Walk The Moon", "Levitating - Dua Lipa"]
 }
 
 # -----------------------------
-# Streamlit UI
+# Streamlit 앱
 # -----------------------------
-st.set_page_config(page_title="MBTI 노래 추천기", page_icon="🎧", layout="centered")
+st.set_page_config(page_title="MBTI 노래 추천기", layout="centered")
+st.title("🎧 MBTI 기반 근거 있는 노래 추천기")
 
-st.title("🎧 MBTI 기반 노래 추천기")
-st.write("당신의 MBTI를 선택하면 어울리는 노래를 추천해드릴게요!")
+user_mbti = st.selectbox("당신의 MBTI를 선택하세요 👇", ["선택하세요"] + list(mbti_songs.keys()))
 
-# MBTI 선택
-mbti_list = list(mbti_songs.keys())
-user_mbti = st.selectbox("당신의 MBTI를 선택하세요 👇", ["선택하세요"] + mbti_list)
-
-# 추천 버튼
-if st.button("노래 추천받기 🎵"):
+if st.button("추천받기 🎵"):
     if user_mbti in mbti_songs:
         songs = random.sample(mbti_songs[user_mbti], 3)
-        st.success(f"🎶 {user_mbti} 유형에게 어울리는 노래 추천 🎶")
+        st.success(f"🎶 {user_mbti}에게 어울리는 추천곡 🎶")
         for idx, song in enumerate(songs, start=1):
             st.write(f"{idx}. {song}")
+        st.balloons()
     else:
         st.warning("⚠️ MBTI를 선택해주세요!")
-
-# 푸터
-st.markdown("---")
-st.caption("✨ Made with Streamlit | Python 3.10 ✨")
