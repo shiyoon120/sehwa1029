@@ -10,7 +10,7 @@ if st.button('환영인사'):
     st.write(name+'님 안녕하세요!')
     st.balloons()
     st.image('https://file2.nocutnews.co.kr/newsroom/image/2024/10/19/202410191639106350_0.jpg')
-    st.video('https://youtu.be/BsDPox8ZvQw?si=EZmGxchCIlN-dbtN)
+    st.video('https://youtu.be/BsDPox8ZvQw?si=EZmGxchCIlN-dbtN')
 
 st.success('성공!')
 st.warning('경고!')
