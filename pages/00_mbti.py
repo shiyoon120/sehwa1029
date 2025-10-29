@@ -1,36 +1,38 @@
 import streamlit as st
 import random
 
-# -----------------------------
-# MBTI 데이터 (16개)
-# -----------------------------
+# MBTI 데이터
 mbti_info = {
-    "INTJ": {"desc": "전략적, 계획적, 자기 주도형", "color": "#D0E1F9", "mood": "calm", "songs": [
-        {"title": "Numb - Linkin Park", "genre": "Rock", "emoji": "🎸"},
-        {"title": "Time - Hans Zimmer", "genre": "Instrumental", "emoji": "⏳"},
-        {"title": "Mad World - Gary Jules", "genre": "Pop", "emoji": "🌙"}]},
-    "INTP": {"desc": "분석적, 호기심 많고 내향적", "color": "#DCE775", "mood": "calm", "songs": [
-        {"title": "Stressed Out - Twenty One Pilots", "genre": "Pop/Rock", "emoji": "🌀"},
-        {"title": "Lost Stars - Adam Levine", "genre": "Pop", "emoji": "🌟"},
-        {"title": "Breathe Me - Sia", "genre": "Pop", "emoji": "😶‍🌫️"}]},
-    "ENTJ": {"desc": "리더형, 외향적, 목표 지향", "color": "#FFCC80", "mood": "energetic", "songs": [
-        {"title": "Power - Kanye West", "genre": "Hip-Hop", "emoji": "💪"},
-        {"title": "Eye of the Tiger - Survivor", "genre": "Rock", "emoji": "🐅"},
-        {"title": "Stronger - Kelly Clarkson", "genre": "Pop", "emoji": "⚡"}]},
-    "ENTP": {"desc": "창의적, 즉흥적, 활발", "color": "#FFECB3", "mood": "energetic", "songs": [
-        {"title": "Thunder - Imagine Dragons", "genre": "Rock", "emoji": "⚡"},
-        {"title": "Blinding Lights - The Weeknd", "genre": "Pop", "emoji": "🌃"},
-        {"title": "Counting Stars - OneRepublic", "genre": "Pop", "emoji": "⭐"}]},
-    "INFJ": {"desc": "통찰력, 내향적, 감성적", "color": "#F8BBD0", "mood": "calm", "songs": [
-        {"title": "Fix You - Coldplay", "genre": "Pop", "emoji": "🕯️"},
-        {"title": "Someone Like You - Adele", "genre": "Pop", "emoji": "💔"},
-        {"title": "Let Her Go - Passenger", "genre": "Pop", "emoji": "🌧️"}]},
-    "INFP": {"desc": "이상주의적, 감성적, 내향적", "color": "#F9D0D0", "mood": "sad", "songs": [
-        {"title": "River Flows in You - Yiruma", "genre": "Instrumental", "emoji": "🎹"},
-        {"title": "All I Want - Kodaline", "genre": "Pop", "emoji": "💔"},
-        {"title": "Let It Go - James Bay", "genre": "Pop", "emoji": "❄️"}]},
-    "ENFJ": {"desc": "외향적, 감정 이입, 리더십", "color": "#FFE0B2", "mood": "happy", "songs": [
-        {"title": "We Are Young - Fun.", "genre": "Pop", "emoji": "🎉"},
-        {"title": "What Makes You Beautiful - One Direction", "genre": "Pop", "emoji": "💖"},
-        {"title": "Beautiful People - Ed Sheeran", "genre": "Pop", "emoji": "🌟"}]},
-    "ENFP": {"desc": "자유로운 영혼, 활발, 창의적", "color": "#FFF3D0", "mood": "happy", "songs": [
+    "INTJ": ["Numb - Linkin Park 🎸", "Time - Hans Zimmer ⏳", "Mad World - Gary Jules 🌙"],
+    "INTP": ["Stressed Out - Twenty One Pilots 🌀", "Lost Stars - Adam Levine 🌟", "Breathe Me - Sia 😶‍🌫️"],
+    "ENTJ": ["Power - Kanye West 💪", "Eye of the Tiger - Survivor 🐅", "Stronger - Kelly Clarkson ⚡"],
+    "ENTP": ["Thunder - Imagine Dragons ⚡", "Blinding Lights - The Weeknd 🌃", "Counting Stars - OneRepublic ⭐"],
+    "INFJ": ["Fix You - Coldplay 🕯️", "Someone Like You - Adele 💔", "Let Her Go - Passenger 🌧️"],
+    "INFP": ["River Flows in You - Yiruma 🎹", "All I Want - Kodaline 💔", "Let It Go - James Bay ❄️"],
+    "ENFJ": ["We Are Young - Fun. 🎉", "What Makes You Beautiful - One Direction 💖", "Beautiful People - Ed Sheeran 🌟"],
+    "ENFP": ["Happy - Pharrell Williams 🌞", "Shake It Off - Taylor Swift 💃", "Good Time - Owl City & Carly Rae Jepsen 🎊"],
+    "ISTJ": ["Radioactive - Imagine Dragons ⚡", "Counting Stars - OneRepublic ⭐", "Believer - Imagine Dragons 🔥"],
+    "ISFJ": ["Perfect - Ed Sheeran 💖", "Photograph - Ed Sheeran 📸", "You Are the Reason - Calum Scott ❤️"],
+    "ESTJ": ["Fight Song - Rachel Platten ⚡", "Eye of the Tiger - Survivor 🐅", "Stronger - Kelly Clarkson 💪"],
+    "ESFJ": ["Roar - Katy Perry 🦁", "Best Day of My Life - American Authors 🎉", "Brave - Sara Bareilles 🛡️"],
+    "ISTP": ["Take Me to Church - Hozier ⛪", "Believer - Imagine Dragons 🔥", "Demons - Imagine Dragons 😈"],
+    "ISFP": ["Say You Won’t Let Go - James Arthur ❤️", "Before You Go - Lewis Capaldi 😢", "Let Me Down Slowly - Alec Benjamin 💔"],
+    "ESTP": ["Can’t Stop the Feeling - Justin Timberlake 💃", "Uptown Funk - Bruno Mars 🎷", "On Top of the World - Imagine Dragons 🌍"],
+    "ESFP": ["Dance Monkey - Tones and I 🐒", "Shut Up and Dance - Walk The Moon 💃", "Levitating - Dua Lipa 🪩"]
+}
+
+st.title("🎧 MBTI 음악 추천기")
+st.write("당신의 MBTI를 선택하면, 어울리는 음악을 추천해드립니다!")
+
+# MBTI 선택
+user_mbti = st.selectbox("MBTI 선택", ["선택하세요"] + list(mbti_info.keys()))
+
+if st.button("추천곡 보기"):
+    if user_mbti in mbti_info:
+        songs = random.sample(mbti_info[user_mbti], 3)
+        st.write(f"🎵 {user_mbti}님을 위한 추천곡:")
+        for s in songs:
+            st.write(s)
+        st.balloons()
+    else:
+        st.warning("MBTI를 선택해주세요!")
